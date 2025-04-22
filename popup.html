@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html data-theme="cotton-candy">
+<head>
+  <title>cMeter</title>
+  <meta charset="UTF-8">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Roboto:wght@400;500;700&family=Poppins:wght@400;500;600&family=Montserrat:wght@400;500;600&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* Cotton Candy Theme (Default) */
+    [data-theme="cotton-candy"] {
+      --bg-color: #ffffff;
+      --text-color: #333333;
+      --secondary-text: #666666;
+      --border-color: #dddddd;
+      --hover-bg: #f5f5f5;
+      --card-bg: #f8f8f8;
+      --primary-color: #FF69B4;
+      --danger-color: #ff4444;
+      --danger-hover: #cc0000;
+      --accent-color: #B19CD9;
+    }
+
+    /* Forest Breeze Theme */
+    [data-theme="forest-breeze"] {
+      --bg-color: #F3F7F0;
+      --text-color: #2C4A3E;
+      --secondary-text: #557B6B;
+      --border-color: #A5C3B4;
+      --hover-bg: #E8F0E6;
+      --card-bg: #EBF2E9;
+      --primary-color: #4A7862;
+      --danger-color: #D35D47;
+      --danger-hover: #BF4632;
+      --accent-color: #7FA084;
+    }
+
+    /* Ocean Waves Theme */
+    [data-theme="ocean-waves"] {
+      --bg-color: #F0F7F9;
+      --text-color: #1B4965;
+      --secondary-text: #3D7185;
+      --border-color: #A5C4D4;
+      --hover-bg: #E6F2F7;
+      --card-bg: #EAF4F8;
+      --primary-color: #2E7DA1;
+      --danger-color: #E76F51;
+      --danger-hover: #D65D3E;
+      --accent-color: #62B6CB;
+    }
+
+    /* Sunset Vibes Theme */
+    [data-theme="sunset-vibes"] {
+      --bg-color: #FFF7F0;
+      --text-color: #6B4423;
+      --secondary-text: #9C6644;
+      --border-color: #E6C9B3;
+      --hover-bg: #FFF0E6;
+      --card-bg: #FFF2EA;
+      --primary-color: #E67E22;
+      --danger-color: #FF6B6B;
+      --danger-hover: #FF5252;
+      --accent-color: #FFB347;
+    }
+
+    /* Dark Theme */
+    [data-theme="dark"] {
+      --bg-color: #1a1a1a;
+      --text-color: #ffffff;
+      --secondary-text: #bbbbbb;
+      --border-color: #444444;
+      --hover-bg: #2a2a2a;
+      --card-bg: #2d2d2d;
+      --primary-color: #5cba60;
+      --danger-color: #ff5555;
+      --danger-hover: #ff3333;
+      --accent-color: #7289DA;
+    }
+
+    body {
+      width: 500px;
+      padding: 20px;
+      font-family: var(--font-family);
+      font-size: var(--font-size);
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      transition: all 0.3s ease;
+      margin: 0;
+      line-height: 1.5;
+    }
+
+    .container {
+      text-align: center;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      padding-bottom: 15px;
+      border-bottom: 2px solid var(--border-color);
+    }
+
+    h2, h3, h4 {
+      margin: 0;
+      font-weight: 600;
+    }
+
+    .settings-icon {
+      cursor: pointer;
+      font-size: 20px;
+      color: var(--secondary-text);
+      user-select: none;
+      transition: color 0.2s ease;
+    }
+
+    .settings-icon:hover {
+      color: var(--text-color);
+    }
+
+    .url {
+      word-break: break-all;
+      margin: 10px 0;
+      color: var(--text-color);
+      font-size: 1.1em;
+    }
+
+    .count {
+      font-size: 32px;
+      color: var(--primary-color);
+      font-weight: 600;
+      margin: 15px 0;
+    }
+
+    .youtube-container {
+      display: none;
+      margin: 15px 0;
+      padding: 20px;
+      background-color: var(--card-bg);
+      border-radius: 12px;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .youtube-container.active {
+      display: flex;
+    }
+
+    .youtube-icon {
+      width: 32px;
+      height: 32px;
+      margin-right: 15px;
+    }
+
+    .youtube-text {
+      color: var(--text-color);
+      font-size: 1.1em;
+    }
+
+    .youtube-count {
+      color: #ff0000;
+      font-weight: 600;
+    }
+
+    .label {
+      color: var(--secondary-text);
+      font-size: 0.9em;
+    }
+
+    .top-sites {
+      margin-top: 25px;
+      text-align: left;
+    }
+
+    .top-sites h3 {
+      color: var(--text-color);
+      margin-bottom: 15px;
+    }
+
+    .top-sites a {
+      color: var(--primary-color);
+      text-decoration: none;
+      display: block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 400px;
+      transition: color 0.2s ease;
+    }
+
+    .top-sites a:hover {
+      text-decoration: underline;
+      color: var(--primary-color);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      margin-top: 10px;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    th, td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid var(--border-color);
+      color: var(--text-color);
+    }
+
+    th {
+      background-color: var(--card-bg);
+      font-weight: 500;
+    }
+
+    tr:hover {
+      background-color: var(--hover-bg);
+    }
+
+    .block-domain {
+      margin-top: 20px;
+      padding: 15px;
+      background-color: var(--card-bg);
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .block-domain button {
+      background-color: var(--danger-color);
+      color: white;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-left: 10px;
+      font-family: inherit;
+      font-size: inherit;
+      transition: background-color 0.2s ease;
+    }
+
+    .block-domain button:hover {
+      background-color: var(--danger-hover);
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    .settings-section {
+      background-color: var(--card-bg);
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .settings-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .settings-row:last-child {
+      margin-bottom: 0;
+    }
+
+    .settings-label {
+      font-weight: 500;
+      color: var(--text-color);
+    }
+
+    select {
+      padding: 8px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border-color);
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      font-family: inherit;
+      font-size: inherit;
+      cursor: pointer;
+      outline: none;
+      min-width: 150px;
+      transition: all 0.2s ease;
+    }
+
+    select:hover {
+      border-color: var(--primary-color);
+    }
+
+    select:focus {
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 2px var(--primary-color-transparent);
+    }
+
+    .blocked-domains-list {
+      margin-top: 20px;
+    }
+
+    .blocked-domain-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px;
+      border-bottom: 1px solid var(--border-color);
+      transition: background-color 0.2s ease;
+    }
+
+    .blocked-domain-item:hover {
+      background-color: var(--hover-bg);
+    }
+
+    .domain-actions {
+      display: flex;
+      gap: 12px;
+    }
+
+    .domain-actions button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--secondary-text);
+      font-size: 16px;
+      transition: color 0.2s ease;
+    }
+
+    .domain-actions button:hover {
+      color: var(--text-color);
+    }
+
+    .reset-button {
+      background-color: var(--danger-color);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 20px;
+      font-family: inherit;
+      font-size: inherit;
+      transition: background-color 0.2s ease;
+    }
+
+    .reset-button:hover {
+      background-color: var(--danger-hover);
+    }
+
+    .tab-buttons {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .tab-button {
+      padding: 10px 20px;
+      border: none;
+      background-color: var(--card-bg);
+      color: var(--text-color);
+      cursor: pointer;
+      border-radius: 6px;
+      font-family: inherit;
+      font-size: inherit;
+      transition: all 0.2s ease;
+    }
+
+    .tab-button:hover {
+      background-color: var(--hover-bg);
+    }
+
+    .tab-button.active {
+      background-color: var(--primary-color);
+      color: white;
+    }
+
+    .settings-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .theme-toggle {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      padding: 8px;
+      border-radius: 6px;
+      transition: background-color 0.2s ease;
+    }
+
+    .theme-toggle:hover {
+      background-color: var(--hover-bg);
+    }
+
+    .theme-icon {
+      font-size: 20px;
+      color: var(--secondary-text);
+    }
+
+    .color-preview {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      display: inline-block;
+      margin-right: 8px;
+      vertical-align: middle;
+      border: 2px solid var(--border-color);
+    }
+
+    .theme-option {
+      display: flex;
+      align-items: center;
+      padding: 4px 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h2>cMeter</h2>
+      <span class="settings-icon" id="settingsIcon">&#9881;</span>
+    </div>
+
+    <div class="tab-buttons">
+      <button class="tab-button active" id="mainTabBtn">Main</button>
+      <button class="tab-button" id="settingsTabBtn">Settings</button>
+    </div>
+
+    <div id="mainTab" class="tab-content active">
+      <div class="url" id="currentUrl">Loading...</div>
+      <div class="youtube-container" id="youtubeContainer">
+        <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0OCA0OCI+PHBhdGggZmlsbD0iI2ZmMDAwMCIgZD0iTTQzLjIsMzMuOWMtMC40LDIuMS0yLjEsMy43LTQuMiw0Yy0zLjMsMC41LTguOCwxLjEtMTUsMC45Yy02LjEtMC4xLTExLjYtMC44LTE0LjktMS4zYy0yLjEtMC4zLTMuOC0yLTQuMi00LjFjLTAuNS0yLjQtMS0zLjMtMS02LjZjMC0zLjQsMC41LTYuNSwxLTguOWMwLjQtMi4xLDIuMS0zLjcsNC4yLTRjMy4zLTAuNSw4LjgtMS4xLDE1LTAuOWM2LjIsMC4yLDExLjYsMC44LDE0LjksMS4zYzIuMSwwLjMsMy44LDIsNC4yLDQuMWMwLjUsMi40LDEsNS41LDEsOC45QzQ0LjIsMzAuNiw0My43LDMxLjUsNDMuMiwzMy45eiIvPjxwYXRoIGZpbGw9IiNmZmZmZmYiIGQ9Ik0yMCwzMS40bDEwLjctNi4yTDIwLDE5VjMxLjR6Ii8+PC9zdmc+" class="youtube-icon" alt="YouTube">
+        <span class="youtube-text">You have seen this video <span class="youtube-count" id="youtubeCount">0</span> times</span>
+      </div>
+      <div class="count" id="visitCount">0</div>
+      <div class="label">times visited</div>
+      
+      <div class="block-domain" id="blockDomainContainer">
+        <span id="currentDomain"></span>
+        <button id="blockDomainBtn">Do not track this domain</button>
+      </div>
+      
+      <div class="top-sites">
+        <h3>Top Visited Sites</h3>
+        <table id="topSitesTable">
+          <thead>
+            <tr>
+              <th>URL</th>
+              <th>Visits</th>
+            </tr>
+          </thead>
+          <tbody id="topSitesBody">
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div id="settingsTab" class="tab-content">
+      <div class="settings-header">
+        <h3>Settings</h3>
+        <div class="theme-toggle" id="themeToggle">
+          <span class="theme-icon" id="themeIcon">☀️</span>
+        </div>
+      </div>
+
+      <div class="settings-section">
+        <h4>Appearance</h4>
+        <div class="settings-row">
+          <span class="settings-label">Color Theme</span>
+          <select id="colorThemeSelect">
+            <option value="cotton-candy">Cotton Candy</option>
+            <option value="forest-breeze">Forest Breeze</option>
+            <option value="ocean-waves">Ocean Waves</option>
+            <option value="sunset-vibes">Sunset Vibes</option>
+          </select>
+        </div>
+        <div class="settings-row">
+          <span class="settings-label">Font Family</span>
+          <select id="fontSelect">
+            <option value="Inter">Inter</option>
+            <option value="Roboto">Roboto</option>
+            <option value="Poppins">Poppins</option>
+            <option value="Montserrat">Montserrat</option>
+            <option value="Open Sans">Open Sans</option>
+          </select>
+        </div>
+        <div class="settings-row">
+          <span class="settings-label">Font Size</span>
+          <select id="fontSizeSelect">
+            <option value="12px">Small</option>
+            <option value="14px">Medium</option>
+            <option value="16px">Large</option>
+            <option value="18px">Extra Large</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="settings-section">
+        <h4>Blocked Domains</h4>
+        <div id="blockedDomainsList">
+          <!-- Blocked domains will be listed here -->
+        </div>
+      </div>
+      
+      <button class="reset-button" id="resetButton">Reset All Data</button>
+    </div>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html> 
