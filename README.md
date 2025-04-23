@@ -2,6 +2,9 @@
 
 A Chrome extension that tracks and displays the number of times you've visited each URL.
 
+<img src="https://github.com/user-attachments/assets/e5de7942-0fde-4574-a4d7-a42a3a83dde9" alt="cMeter Chrome Extension" width="600" height="370">
+
+
 ## Features
 
 - Tracks visit count for each URL you visit
